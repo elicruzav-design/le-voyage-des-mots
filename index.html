@@ -234,10 +234,10 @@ function render(){
     };
   } else if(state.phase==="done"){
     const next=missions.findIndex((_,i)=>!state.completed.includes(i));
-    main.innerHTML=`<div class="finish"><div class="big-icon">🌟</div><h2>Mission accomplie !</h2><p>Bravo ! Tu as gagné une étoile pour « ${m.title} ».</p><p class="tip">Dis à voix haute un mot ou une phrase que tu as appris.</p><button class="action" id="continue" type="button">${next<0?"Voir mon bilan →":"Prochaine planète →"}</button></div>`;
+    main.innerHTML=`<div class="finish"><div class="big-icon">🌟</div><h2>Mission accomplie !</h2><p>Bravo ! Tu as une étoile pour « ${m.title} ».</p><p class="tip">Dis à voix haute un mot ou une phrase que tu connais.</p><button class="action" id="continue" type="button">${next<0?"Voir mon bilan →":"Prochaine planète →"}</button></div>`;
     $("continue").onclick=()=>{if(next<0)state.phase="finish";else{state.mission=next;state.phase="learn"}render();save()};
   } else {
-    main.innerHTML=`<div class="finish"><div class="big-icon">🏆</div><h2>Bravo, explorateur !</h2><p>Tu as visité les 7 planètes et gagné 7 étoiles !</p><div class="learn"><h3>⏱️ Une minute pour le bilan</h3><p>Dis ton prénom et ton âge. Nomme un jour, un mois, une saison, un nombre et un objet de ta trousse.</p><p>Termine avec : « J’ai un crayon. »</p></div><button class="secondary" id="replay" type="button">Revoir les missions</button></div>`;
+    main.innerHTML=`<div class="finish"><div class="big-icon">🏆</div><h2>Bravo, explorateur !</h2><p>Les 7 planètes sont explorées : tu as 7 étoiles !</p><div class="learn"><h3>⏱️ Une minute pour le bilan</h3><p>Dis ton prénom et ton âge. Nomme un jour, un mois, une saison, un nombre et un objet de ta trousse.</p><p>Termine avec : « J’ai un crayon. »</p></div><button class="secondary" id="replay" type="button">Revoir les missions</button></div>`;
     $("replay").onclick=()=>{state.mission=0;state.phase="learn";render();save()};
   }
 }
