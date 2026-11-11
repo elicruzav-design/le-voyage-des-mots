@@ -1,253 +1,142 @@
 <!doctype html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Le voyage des mots</title>
-  <style>
-    :root{font-family:system-ui,-apple-system,sans-serif;color:#233253;background:#f4f4ff;font-synthesis:none}
-    *{box-sizing:border-box} body{margin:0;min-height:100vh;background:radial-gradient(circle at 5% 2%,#fff5cf,transparent 30%),radial-gradient(circle at 95% 15%,#d1f6ed,transparent 30%),#f4f4ff}
-    button{font:inherit;cursor:pointer} button:focus-visible{outline:3px solid #ee9b37;outline-offset:3px}
-    .wrap{width:min(1000px,94%);margin:auto;padding:24px 0 45px}
-    header{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
-    .brand{font-weight:900;color:#4b42a8;letter-spacing:.03em}.top{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-    .pill{background:white;border:1px solid #e3e3f5;border-radius:20px;padding:8px 13px;font-weight:700}
-    .small{border:0;background:#e8e8fa;color:#423a98;border-radius:12px;padding:9px 12px;font-weight:750}
-    .hero{margin:24px 0;background:#5547ba;color:white;border-radius:28px;padding:30px;box-shadow:0 12px 30px #4e43a329;position:relative;overflow:hidden}
-    .hero:after{content:"✦";position:absolute;right:28px;top:-35px;font-size:150px;opacity:.12;pointer-events:none}
-    h1{font-size:clamp(2rem,5vw,3.2rem);line-height:1.04;margin:8px 0 12px} h2{margin:0 0 10px;font-size:1.6rem} h3{margin:0 0 10px}
-    p{line-height:1.55}.hero p{max-width:670px;margin:0}.tag{font-size:.8rem;font-weight:800;text-transform:uppercase;letter-spacing:.12em}
-    .progress{height:12px;border-radius:15px;background:#dfe0f4;overflow:hidden;margin:12px 0}.progress span{display:block;height:100%;background:#32b69a;transition:width .25s}
-    .layout{display:grid;grid-template-columns:230px 1fr;gap:20px}.card{background:white;border:1px solid #e9e9f6;border-radius:24px;padding:24px;box-shadow:0 8px 26px #343b7010}
-    .map{display:flex;flex-direction:column;gap:8px}.map button{text-align:left;border:0;border-radius:14px;padding:11px;background:#f5f5fc;color:#49516d;font-weight:700}
-    .map button.current{background:#e8e5ff;color:#4b3cab}.map button.done{background:#e2f8f0;color:#21775e}
-    .map .num{display:inline-grid;place-items:center;width:27px;height:27px;background:white;border-radius:9px;margin-right:8px}
-    .eyebrow{font-size:.82rem;font-weight:800;text-transform:uppercase;letter-spacing:.09em;color:#7569cb}
-    .learn{background:#f6f5ff;border-radius:18px;padding:18px;margin:20px 0}
-    .learn p{margin:8px 0}.words{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
-    .word{border-radius:11px;background:white;padding:7px 10px;border:1px solid #e7e5f7}
-    .tip{color:#5d6682;font-size:.95rem}.action{border:0;background:#5547ba;color:white;font-weight:800;border-radius:14px;padding:13px 20px;box-shadow:0 4px 0 #3f348e}
-    .action:disabled{opacity:.5;cursor:default}.secondary{border:1px solid #dcdcf0;background:white;color:#5547a2;font-weight:750;border-radius:14px;padding:12px 16px}
-    .options{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:22px 0}
-    .option{min-height:65px;text-align:left;background:#f9f9ff;border:2px solid #e8e8f5;border-radius:16px;padding:15px;color:#29365a;font-weight:750}
-    .option:hover:not(:disabled){border-color:#8072e2;background:#f1efff}.option.correct{background:#e0f8ec;border-color:#3dbb83}.option.wrong{background:#fff0ed;border-color:#ec847b}
-    .question{font-size:clamp(1.3rem,3vw,1.8rem);font-weight:850;line-height:1.3;margin:18px 0}
-    .feedback{min-height:32px;font-weight:750}.feedback.good{color:#16815e}.feedback.bad{color:#b24a3b}
-    .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.muted{color:#69728a}.big-icon{font-size:3.2rem}
-    .finish{text-align:center;padding:20px 0}.finish .big-icon{font-size:5rem} .footer{text-align:center;color:#6b728c;font-size:.85rem;margin-top:24px}
-    @media(max-width:700px){.layout{grid-template-columns:1fr}.map{display:grid;grid-template-columns:repeat(4,1fr)}.map button{font-size:0;text-align:center;padding:8px}.map .num{font-size:.9rem;margin:0}.options{grid-template-columns:1fr}.card{padding:18px}.hero{padding:23px}}
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Le voyage des mots</title>
+<style>
+:root{font-family:system-ui,-apple-system,sans-serif;color:#233253;background:#f4f4ff}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 5% 2%,#fff5cf,transparent 30%),radial-gradient(circle at 95% 15%,#d1f6ed,transparent 30%),#f4f4ff;min-height:100vh}
+button{font:inherit;cursor:pointer}button:focus-visible,summary:focus-visible{outline:3px solid #ee9b37;outline-offset:3px}
+.wrap{width:min(1050px,94%);margin:auto;padding:22px 0 42px}header,.row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}header{justify-content:space-between}
+.brand{font-weight:900;color:#4b42a8}.pill{background:white;border:1px solid #e3e3f5;border-radius:20px;padding:8px 13px;font-weight:700}
+.small{border:0;background:#e8e8fa;color:#423a98;border-radius:12px;padding:9px 12px;font-weight:750}
+.hero{margin:22px 0;background:#5547ba;color:white;border-radius:28px;padding:27px;box-shadow:0 12px 30px #4e43a329}
+h1{font-size:clamp(2rem,5vw,3rem);line-height:1.04;margin:8px 0 12px}h2{margin:0 0 10px;font-size:1.55rem}h3{margin:0 0 10px}p{line-height:1.55}.hero p{margin:0}.tag,.eyebrow{font-size:.82rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em}.eyebrow{color:#7569cb}
+.layout{display:grid;grid-template-columns:235px 1fr;gap:20px}.card{background:white;border:1px solid #e9e9f6;border-radius:24px;padding:24px;box-shadow:0 8px 26px #343b7010}
+.map{display:flex;flex-direction:column;gap:8px}.map button{text-align:left;border:0;border-radius:14px;padding:10px;background:#f5f5fc;color:#49516d;font-weight:700}.map button.current{background:#e8e5ff;color:#4b3cab}.map button.done{background:#e2f8f0;color:#21775e}.num{display:inline-grid;place-items:center;width:27px;height:27px;background:white;border-radius:9px;margin-right:8px}
+.progress{height:12px;border-radius:15px;background:#dfe0f4;overflow:hidden;margin:12px 0}.progress span{display:block;height:100%;background:#32b69a;transition:width .25s}
+.learn{background:#f6f5ff;border-radius:18px;padding:18px;margin:18px 0}.words{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}.word{border-radius:11px;background:white;padding:7px 10px;border:1px solid #e7e5f7}
+.tip,.muted{color:#5d6682;font-size:.95rem}.action,.secondary{font-weight:800;border-radius:14px;padding:12px 17px}.action{border:0;background:#5547ba;color:white;box-shadow:0 4px 0 #3f348e}.action:disabled{opacity:.5;cursor:default}.secondary{border:1px solid #dcdcf0;background:white;color:#5547a2}
+.question{font-size:clamp(1.2rem,3vw,1.65rem);font-weight:850;line-height:1.3;margin:18px 0}.options{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:16px 0}.option{min-height:55px;text-align:left;background:#f9f9ff;border:2px solid #e8e8f5;border-radius:15px;padding:12px;color:#29365a;font-weight:750}.option:hover:not(:disabled){border-color:#8072e2;background:#f1efff}.option.selected{background:#eae7ff;border-color:#6857cf}.option.matched{background:#e0f8ec;border-color:#3dbb83;color:#28795f}.option:disabled{cursor:default}.feedback{min-height:29px;font-weight:750}.good{color:#16815e}.bad{color:#b24a3b}
+.pair-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.pair-grid .column{display:grid;gap:8px}.pair-grid .option{text-align:center}.sequence{min-height:65px;background:#f4f3fc;border-radius:15px;padding:12px;display:flex;flex-wrap:wrap;gap:8px;align-items:center}.chip{background:#e8e5ff;border-radius:10px;padding:8px 10px;font-weight:700}
+details{margin:18px 0;background:#f6f5ff;border-radius:14px;padding:12px 15px}summary{cursor:pointer;font-weight:750;color:#50439e}.big-icon{font-size:3.2rem}.finish{text-align:center;padding:20px 0}.finish .big-icon{font-size:5rem}.footer{text-align:center;color:#6b728c;font-size:.85rem;margin-top:24px}
+@media(max-width:700px){.layout{grid-template-columns:1fr}.map{display:grid;grid-template-columns:repeat(4,1fr)}.map button{font-size:0;text-align:center;padding:8px}.map .num{font-size:.9rem;margin:0}.card{padding:18px}.hero{padding:23px}.option{padding:9px}.pair-grid{gap:7px}}
+</style>
 </head>
 <body>
 <div class="wrap">
-  <header>
-    <div class="brand">✦ LE VOYAGE DES MOTS</div>
-    <div class="top">
-      <span class="pill" id="clock" aria-label="Temps restant">⏱ 50:00</span>
-      <button class="small" id="timerButton" type="button">Démarrer le temps</button>
-      <span class="pill" id="stars">⭐ 0 / 7</span>
-    </div>
-  </header>
-  <div class="hero">
-    <div class="tag">Une aventure en français · niveau débutant</div>
-    <h1>Prêt pour le voyage ? 🚀</h1>
-    <p>Explore 7 planètes, découvre les mots et gagne des étoiles. Lis, écoute, parle et joue !</p>
-  </div>
+  <header><div class="brand">✦ LE VOYAGE DES MOTS</div><div class="row"><span class="pill" id="clock">⏱ 50:00</span><button class="small" id="timerButton" type="button">Démarrer le temps</button><span class="pill" id="stars">⭐ 0 / 7</span></div></header>
+  <div class="hero"><div class="tag">Une aventure en français · niveau débutant</div><h1>Prêt pour le voyage ? 🚀</h1><p>Explore 7 planètes. Associe, classe et complète pour gagner des étoiles !</p></div>
   <div class="layout">
-    <aside class="card">
-      <h3>🪐 Ma carte</h3>
-      <div id="map" class="map" aria-label="Les missions"></div>
-      <div class="progress" aria-label="Progression"><span id="progressBar"></span></div>
-      <p class="tip">7 minutes par planète : environ 2 minutes pour lire et parler, puis 5 minutes pour jouer. Garde 1 minute pour le bilan !</p>
-      <button class="secondary" id="reset" type="button">Recommencer</button>
-    </aside>
+    <aside class="card"><h3>🪐 Ma carte</h3><div id="map" class="map" aria-label="Les missions"></div><div class="progress"><span id="progressBar"></span></div><p class="tip">Environ 7 minutes par planète : lis les mots, joue et fais le petit défi sur papier. Garde 1 minute pour le bilan !</p><button class="secondary" id="reset" type="button">Recommencer</button></aside>
     <main class="card" id="main"></main>
   </div>
   <p class="footer">Un jeu sans compte ni données personnelles · Le temps est indicatif.</p>
 </div>
 <script>
 "use strict";
-const missions = [
-  {
-    icon:"📅", title:"Les jours de la semaine",
-    words:["lundi","mardi","mercredi","jeudi","vendredi","samedi","dimanche"],
-    say:"Dis les sept jours à voix haute. Quel jour est aujourd’hui ?",
-    qs:[
-      ["Après lundi, c’est…","mardi","jeudi","dimanche","samedi"],
-      ["Avant jeudi, c’est…","mercredi","vendredi","lundi","dimanche"],
-      ["Après vendredi, c’est…","samedi","mardi","jeudi","lundi"],
-      ["Avant lundi, c’est…","dimanche","samedi","mercredi","mardi"],
-      ["Quel jour est entre mardi et jeudi ?","mercredi","lundi","vendredi","dimanche"],
-      ["Après samedi, c’est…","dimanche","lundi","vendredi","mardi"],
-      ["Quel jour vient après mercredi ?","jeudi","mardi","dimanche","lundi"],
-      ["Quel est le premier jour de la semaine ?","lundi","samedi","dimanche","jeudi"]
-    ]
-  },
-  {
-    icon:"🗓️", title:"Les mois de l’année",
-    words:["janvier","février","mars","avril","mai","juin","juillet","août","septembre","octobre","novembre","décembre"],
-    say:"Lis les douze mois. Dis le mois de ton anniversaire.",
-    qs:[
-      ["Le premier mois de l’année est…","janvier","mars","décembre","juin"],
-      ["Après février, c’est…","mars","mai","janvier","août"],
-      ["Avant mai, c’est…","avril","juin","juillet","octobre"],
-      ["Après juin, c’est…","juillet","février","septembre","mai"],
-      ["Avant septembre, c’est…","août","octobre","avril","mars"],
-      ["Après octobre, c’est…","novembre","décembre","janvier","juin"],
-      ["Le dernier mois de l’année est…","décembre","novembre","janvier","février"],
-      ["Quel mois est entre mars et mai ?","avril","juin","octobre","août"]
-    ]
-  },
-  {
-    icon:"🌳", title:"Les saisons",
-    words:["le printemps 🌷","l’été ☀️","l’automne 🍂","l’hiver ❄️"],
-    say:"Répète les quatre saisons. Quelle saison préfères-tu ?",
-    qs:[
-      ["Quelle saison vient après le printemps ?","l’été","l’hiver","l’automne","le printemps"],
-      ["Quelle saison vient après l’été ?","l’automne","l’hiver","le printemps","l’été"],
-      ["Quelle saison vient après l’automne ?","l’hiver","l’été","le printemps","l’automne"],
-      ["Quelle saison vient après l’hiver ?","le printemps","l’automne","l’été","l’hiver"],
-      ["Quelle saison associe-t-on aux fleurs ? 🌷","le printemps","l’hiver","l’automne","aucune saison"],
-      ["Quelle saison associe-t-on à la neige ? ❄️","l’hiver","l’été","le printemps","l’automne"],
-      ["Quelle saison associe-t-on aux feuilles qui tombent ? 🍂","l’automne","l’été","l’hiver","le printemps"],
-      ["Quelle saison associe-t-on à la chaleur ? ☀️","l’été","l’hiver","l’automne","le printemps"]
-    ]
-  },
-  {
-    icon:"👋", title:"Je me présente",
-    words:["Bonjour !","Je m’appelle Léa.","J’ai 8 ans.","Comment tu t’appelles ?","Quel âge as-tu ?","Au revoir !"],
-    say:"Dis bonjour. Présente-toi à voix haute : ton prénom et ton âge.",
-    qs:[
-      ["Pour dire bonjour, je dis…","Bonjour !","Au revoir !","Merci !","Bonne nuit !"],
-      ["Pour donner mon prénom, je dis…","Je m’appelle Léa.","J’ai huit ans.","Au revoir !","Je suis une gomme."],
-      ["Pour donner mon âge, je dis…","J’ai huit ans.","Je m’appelle huit.","Bonjour huit.","Je suis un crayon."],
-      ["« Comment tu t’appelles ? » — « … »","Je m’appelle Hugo.","J’ai dix ans.","C’est lundi.","J’ai un stylo."],
-      ["« Quel âge as-tu ? » — « … »","J’ai neuf ans.","Je m’appelle neuf.","C’est janvier.","Au revoir !"],
-      ["Pour partir, je dis…","Au revoir !","Bonjour !","Je m’appelle.","J’ai."],
-      ["« Bonjour ! Je m’appelle Zoé. » — Je réponds…","Bonjour Zoé !","C’est un cahier.","J’ai une règle.","C’est mardi."],
-      ["« Je m’appelle Sami. » Sami donne…","son prénom","son âge","un nombre","un mois"]
-    ]
-  },
-  {
-    icon:"🔢", title:"Les nombres jusqu’à 1 000",
-    words:["10 dix","20 vingt","30 trente","40 quarante","50 cinquante","60 soixante","70 soixante-dix","80 quatre-vingts","90 quatre-vingt-dix","100 cent","1 000 mille"],
-    say:"Lis les nombres. Compte de dix en dix jusqu’à cent, puis dis « mille ».",
-    qs:[
-      ["Combien font « vingt » ?","20","12","200","30"],
-      ["Comment écrit-on 35 ?","trente-cinq","cinquante-trois","trente-six","vingt-cinq"],
-      ["Combien font « soixante-dix » ?","70","60","17","80"],
-      ["Comment écrit-on 80 ?","quatre-vingts","quatre-vingt-dix","quatorze","quatre-vingt-un"],
-      ["Combien font « quatre-vingt-dix » ?","90","80","19","100"],
-      ["Comment écrit-on 100 ?","cent","mille","dix","cinquante"],
-      ["Combien font « deux cents » ?","200","2 000","20","102"],
-      ["Comment écrit-on 1 000 ?","mille","cent","dix","un million"]
-    ]
-  },
-  {
-    icon:"✏️", title:"Dans la trousse",
-    words:["un crayon ✏️","un stylo 🖊️","une gomme","une règle 📏","un taille-crayon","des ciseaux ✂️","un feutre","un bâton de colle"],
-    say:"Regarde ta trousse. Montre et nomme trois objets à voix haute.",
-    qs:[
-      ["Pour effacer, j’utilise…","une gomme","une règle","un stylo","des ciseaux"],
-      ["Pour tracer une ligne droite, j’utilise…","une règle","une gomme","un bâton de colle","un taille-crayon"],
-      ["Pour tailler mon crayon, j’utilise…","un taille-crayon","une règle","un feutre","une gomme"],
-      ["Pour couper du papier, j’utilise…","des ciseaux","un stylo","une gomme","une règle"],
-      ["Pour coller du papier, j’utilise…","un bâton de colle","un crayon","une gomme","une règle"],
-      ["Quel objet est un crayon ?","✏️","✂️","📏","🖊️"],
-      ["Quel objet est une règle ?","📏","✏️","✂️","🖊️"],
-      ["Complète : « J’ai ___ stylo. »","un","une","des","la"]
-    ]
-  },
-  {
-    icon:"💬", title:"Avoir et s’appeler",
-    words:["j’ai · tu as · il / elle a","je m’appelle · tu t’appelles · il / elle s’appelle"],
-    say:"À voix haute : « Je m’appelle… J’ai… ans. » Puis pose les questions à un camarade.",
-    qs:[
-      ["Complète : « J’___ un crayon. »","ai","as","a","appelle"],
-      ["Complète : « Tu ___ une gomme. »","as","ai","a","s’appelle"],
-      ["Complète : « Elle ___ dix ans. »","a","ai","as","t’appelles"],
-      ["Complète : « Je m’___ Léo. »","appelle","appelles","as","a"],
-      ["Complète : « Tu t’___ comment ? »","appelles","appelle","ai","a"],
-      ["Complète : « Il s’___ Noé. »","appelle","appelles","as","ai"],
-      ["« Tu as un stylo ? » — « Oui, j’___ un stylo. »","ai","as","a","appelle"],
-      ["« Comment elle s’appelle ? » — « Elle s’___ Inès. »","appelle","appelles","as","ai"]
-    ]
-  }
+const missions=[
+ {icon:"📅",title:"Les jours de la semaine",words:["lundi","mardi","mercredi","jeudi","vendredi","samedi","dimanche"],paper:"Sur ton cahier, écris les sept jours de la semaine dans l’ordre.",tasks:[
+  {type:"order",prompt:"Place les jours dans l’ordre, de lundi à dimanche.",items:["lundi","mardi","mercredi","jeudi","vendredi","samedi","dimanche"]},
+  {type:"pairs",prompt:"Associe les jours : avant → après.",pairs:[["lundi","mardi"],["mercredi","jeudi"],["vendredi","samedi"],["samedi","dimanche"]]},
+  {type:"quiz",prompt:"Complète le calendrier.",questions:[["lundi, mardi, ___","mercredi","jeudi","samedi"],["jeudi, ___, samedi","vendredi","mardi","dimanche"],["dimanche, ___, mardi","lundi","vendredi","jeudi"],["Quel jour est entre mercredi et vendredi ?","jeudi","samedi","lundi"]]}
+ ]},
+ {icon:"🗓️",title:"Les mois de l’année",words:["janvier","février","mars","avril","mai","juin","juillet","août","septembre","octobre","novembre","décembre"],paper:"Sur ton cahier, écris les douze mois dans l’ordre et entoure ton mois d’anniversaire.",tasks:[
+  {type:"order",prompt:"Place les six premiers mois dans l’ordre.",items:["janvier","février","mars","avril","mai","juin"]},
+  {type:"order",prompt:"Place les six derniers mois dans l’ordre.",items:["juillet","août","septembre","octobre","novembre","décembre"]},
+  {type:"quiz",prompt:"Complète l’année.",questions:[["janvier, février, ___","mars","mai","août"],["avril, mai, ___","juin","juillet","octobre"],["août, ___, octobre","septembre","novembre","mars"],["Le dernier mois est…","décembre","janvier","juin"]]}
+ ]},
+ {icon:"🌳",title:"Les saisons",words:["le printemps 🌷","l’été ☀️","l’automne 🍂","l’hiver ❄️"],paper:"Sur ton cahier, dessine les quatre saisons et écris leur nom.",tasks:[
+  {type:"pairs",prompt:"Associe chaque image à une saison.",pairs:[["🌷 fleurs","le printemps"],["☀️ chaleur","l’été"],["🍂 feuilles","l’automne"],["❄️ neige","l’hiver"]]},
+  {type:"order",prompt:"Place les saisons dans l’ordre, à partir du printemps.",items:["le printemps","l’été","l’automne","l’hiver"]},
+  {type:"quiz",prompt:"Complète le cycle des saisons.",questions:[["Après l’été :","l’automne","l’hiver","le printemps"],["Après l’hiver :","le printemps","l’automne","l’été"],["Avant l’hiver :","l’automne","le printemps","l’été"],["Avant l’été :","le printemps","l’hiver","l’automne"]]}
+ ]},
+ {icon:"👋",title:"Je me présente",words:["Bonjour !","Je m’appelle Léa.","J’ai 8 ans.","Comment tu t’appelles ?","Quel âge as-tu ?","Au revoir !"],paper:"Sur ton cahier, écris : « Bonjour ! Je m’appelle … J’ai … ans. »",tasks:[
+  {type:"pairs",prompt:"Associe chaque question à une réponse.",pairs:[["Comment tu t’appelles ?","Je m’appelle Léa."],["Quel âge as-tu ?","J’ai 8 ans."],["Bonjour !","Bonjour !"],["Au revoir !","À bientôt !"]]},
+  {type:"order",prompt:"Construis la phrase pour dire ton prénom.",items:["Je","m’appelle","Léa."]},
+  {type:"quiz",prompt:"Choisis la bonne réponse.",questions:[["« Quel âge as-tu ? »","J’ai neuf ans.","Je m’appelle neuf.","C’est lundi."],["« Comment tu t’appelles ? »","Je m’appelle Sam.","J’ai un stylo.","J’ai dix ans."],["Pour dire bonjour :","Bonjour !","Au revoir !","J’ai une gomme."],["Pour partir :","Au revoir !","Bonjour !","Je m’appelle."]]}
+ ]},
+ {icon:"🔢",title:"Les nombres jusqu’à 1 000",words:["10 dix","20 vingt","30 trente","40 quarante","50 cinquante","60 soixante","70 soixante-dix","80 quatre-vingts","90 quatre-vingt-dix","100 cent","200 deux cents","1 000 mille"],paper:"Sur ton cahier, écris en français : 20, 70, 100, 200 et 1 000.",tasks:[
+  {type:"pairs",prompt:"Associe les nombres et les mots.",pairs:[["20","vingt"],["70","soixante-dix"],["100","cent"],["1 000","mille"]]},
+  {type:"order",prompt:"Classe les nombres du plus petit au plus grand.",items:["10","40","80","100","200","1 000"]},
+  {type:"quiz",prompt:"Trouve le nombre.",questions:[["trente-cinq =","35","53","30"],["quatre-vingts =","80","90","18"],["deux cents =","200","20","2 000"],["90 =","quatre-vingt-dix","quatre-vingts","soixante-dix"]]}
+ ]},
+ {icon:"✏️",title:"Dans la trousse",words:["un crayon ✏️","un stylo 🖊️","une gomme","une règle 📏","un taille-crayon","des ciseaux ✂️","un feutre","un bâton de colle"],paper:"Sur ton cahier, dessine quatre objets de ta trousse et écris leur nom.",tasks:[
+  {type:"pairs",prompt:"Associe l’objet à son utilisation.",pairs:[["une gomme","effacer"],["une règle","tracer une ligne"],["des ciseaux","couper"],["un bâton de colle","coller"]]},
+  {type:"pairs",prompt:"Associe chaque image à son nom.",pairs:[["✏️","un crayon"],["🖊️","un stylo"],["📏","une règle"],["✂️","des ciseaux"]]},
+  {type:"quiz",prompt:"Complète la trousse.",questions:[["J’ai ___ crayon.","un","une","des"],["J’ai ___ gomme.","une","un","des"],["J’ai ___ ciseaux.","des","un","une"],["Pour tailler mon crayon :","un taille-crayon","une règle","une gomme"]]}
+ ]},
+ {icon:"💬",title:"Avoir et s’appeler",words:["j’ai · tu as · il / elle a","je m’appelle · tu t’appelles · il / elle s’appelle"],paper:"Sur ton cahier, écris deux phrases : « Je m’appelle … » et « J’ai … ans. »",tasks:[
+  {type:"pairs",prompt:"Associe le sujet et le verbe avoir.",pairs:[["je","j’ai"],["tu","tu as"],["il","il a"],["elle","elle a"]]},
+  {type:"order",prompt:"Construis une phrase avec le verbe s’appeler.",items:["Elle","s’appelle","Inès."]},
+  {type:"quiz",prompt:"Complète les phrases.",questions:[["J’___ un stylo.","ai","as","a"],["Tu ___ huit ans.","as","ai","a"],["Il ___ une gomme.","a","as","ai"],["Je m’___ Léo.","appelle","appelles","as"],["Tu t’___ comment ?","appelles","appelle","as"],["Elle s’___ Zoé.","appelle","appelles","ai"]]}
+ ]}
 ];
-const $ = id => document.getElementById(id);
-let state = {completed:[], mission:0, question:0, phase:"learn", seconds:3000, running:false};
-let timer = null, choices = [], answered = false;
-function shuffle(items){return [...items].sort(()=>Math.random()-.5)}
-function save(){
-  try { localStorage.setItem("voyage-des-mots-v1", JSON.stringify({...state,running:false})); }
-  catch(e) { console.warn("La progression ne peut pas être enregistrée.",e); }
-}
-function restore(){
-  try {
-    const saved=JSON.parse(localStorage.getItem("voyage-des-mots-v1"));
-    if(saved && Array.isArray(saved.completed)){
-      state.completed=[...new Set(saved.completed.filter(n=>Number.isInteger(n)&&n>=0&&n<missions.length))];
-      state.mission=Number.isInteger(saved.mission)&&saved.mission>=0&&saved.mission<missions.length?saved.mission:0;
-      state.seconds=Number.isInteger(saved.seconds)&&saved.seconds>=0&&saved.seconds<=3000?saved.seconds:3000;
-    }
-  } catch(e) { console.warn("La progression enregistrée ne peut pas être lue.",e); }
-}
-function clock(){
-  const m=Math.floor(state.seconds/60),s=state.seconds%60;
-  $("clock").textContent=`⏱ ${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}`;
-  $("timerButton").textContent=state.running?"Pause":state.seconds===0?"Temps écoulé":"Démarrer le temps";
-  $("timerButton").disabled=state.seconds===0;
-}
+const $=id=>document.getElementById(id);
+let state={completed:[],mission:0,phase:"learn",task:0,seconds:3000,running:false};
+let timer=null, activity=null;
+function shuffle(items){const a=[...items];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function save(){try{localStorage.setItem("voyage-des-mots-v2",JSON.stringify({...state,running:false,phase:"learn",task:0}))}catch(e){console.warn("La progression ne peut pas être enregistrée.",e)}}
+function restore(){try{const s=JSON.parse(localStorage.getItem("voyage-des-mots-v2"));if(s&&Array.isArray(s.completed)){state.completed=[...new Set(s.completed.filter(n=>Number.isInteger(n)&&n>=0&&n<missions.length))];if(Number.isInteger(s.mission)&&s.mission>=0&&s.mission<missions.length)state.mission=s.mission;if(Number.isInteger(s.seconds)&&s.seconds>=0&&s.seconds<=3000)state.seconds=s.seconds}}catch(e){console.warn("La progression enregistrée ne peut pas être lue.",e)}}
+function clock(){const m=Math.floor(state.seconds/60),s=state.seconds%60;$("clock").textContent=`⏱ ${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}`;$("timerButton").textContent=state.running?"Pause":state.seconds===0?"Temps écoulé":"Démarrer le temps";$("timerButton").disabled=state.seconds===0}
 function map(){
-  $("stars").textContent=`⭐ ${state.completed.length} / 7`;
-  $("progressBar").style.width=`${state.completed.length/7*100}%`;
-  $("map").innerHTML=missions.map((m,i)=>`<button type="button" class="${i===state.mission?"current":state.completed.includes(i)?"done":""}" data-mission="${i}" aria-label="Mission ${i+1} : ${m.title}${state.completed.includes(i)?" : terminée":""}"><span class="num">${state.completed.includes(i)?"✓":i+1}</span> ${m.title}</button>`).join("");
-  document.querySelectorAll("[data-mission]").forEach(b=>b.addEventListener("click",()=>{state.mission=Number(b.dataset.mission);state.question=0;state.phase="learn";choices=[];answered=false;render();save()}));
+ $("stars").textContent=`⭐ ${state.completed.length} / 7`;$("progressBar").style.width=`${state.completed.length/7*100}%`;
+ $("map").innerHTML=missions.map((m,i)=>`<button type="button" class="${i===state.mission?"current":state.completed.includes(i)?"done":""}" data-mission="${i}" aria-label="Mission ${i+1} : ${m.title}${state.completed.includes(i)?" : terminée":""}"><span class="num">${state.completed.includes(i)?"✓":i+1}</span> ${m.title}</button>`).join("");
+ document.querySelectorAll("[data-mission]").forEach(b=>b.onclick=()=>{state.mission=Number(b.dataset.mission);state.phase="learn";state.task=0;activity=null;render();save()});
 }
-function speak(text){
-  if(!("speechSynthesis" in window)){alert("La lecture audio n’est pas disponible dans ce navigateur.");return}
-  speechSynthesis.cancel();
-  const utterance=new SpeechSynthesisUtterance(text);utterance.lang="fr-FR";utterance.rate=.85;speechSynthesis.speak(utterance);
+function initActivity(){
+ const task=missions[state.mission].tasks[state.task];
+ if(task.type==="order")activity={pool:shuffle(task.items.map((_,i)=>i)),chosen:[],message:"",good:false};
+ if(task.type==="pairs")activity={left:shuffle(task.pairs.map((_,i)=>i)),right:shuffle(task.pairs.map((_,i)=>i)),selected:null,matched:[],message:"",good:false};
+ if(task.type==="quiz")activity={index:0,options:shuffle(task.questions[0].slice(1)),message:"",good:false,solved:false};
 }
+function nextTask(){state.task++;activity=null;if(state.task===missions[state.mission].tasks.length){state.phase="paper"}render();save()}
 function render(){
-  map();clock();
-  const m=missions[state.mission], main=$("main");
-  if(state.phase==="learn"){
-    main.innerHTML=`<div class="eyebrow">Mission ${state.mission+1} sur 7 · environ 7 minutes</div><div class="big-icon">${m.icon}</div><h2>${m.title}</h2><p class="muted">D’abord, découvre les mots. Ensuite, réponds aux 8 défis !</p><div class="learn"><h3>🔎 Je découvre</h3><div class="words">${m.words.map(w=>`<span class="word">${w}</span>`).join("")}</div><button class="secondary" id="listen" type="button">🔊 Écouter les mots</button><p><strong>🗣️ À toi !</strong> ${m.say}</p></div><button class="action" id="start" type="button">C’est parti ! →</button>`;
-    $("listen").onclick=()=>speak(m.words.join(". "));
-    $("start").onclick=()=>{state.phase="quiz";state.question=0;newQuestion();render();save()};
-  } else if(state.phase==="quiz"){
-    const q=m.qs[state.question];
-    if(!choices.length)newQuestion();
-    main.innerHTML=`<div class="eyebrow">${m.icon} ${m.title} · Défi ${state.question+1} / ${m.qs.length}</div><div class="progress"><span style="width:${state.question/m.qs.length*100}%"></span></div><div class="question">${q[0]}</div><button class="secondary" id="listenQuestion" type="button">🔊 Écouter</button><div class="options">${choices.map((c,i)=>`<button class="option" data-choice="${i}" type="button">${c}</button>`).join("")}</div><div class="feedback" id="feedback" role="status" aria-live="polite"></div><button class="action" id="next" type="button" hidden>Continuer →</button>`;
-    $("listenQuestion").onclick=()=>speak(q[0]+". "+choices.join(". "));
-    document.querySelectorAll("[data-choice]").forEach(b=>b.onclick=()=>{
-      if(answered)return;
-      const correct=choices[Number(b.dataset.choice)]===q[1];
-      if(correct){answered=true;b.classList.add("correct");$("feedback").className="feedback good";$("feedback").textContent="Bravo ! Bonne réponse ! ⭐";$("next").hidden=false;document.querySelectorAll("[data-choice]").forEach(x=>x.disabled=true)}
-      else {b.classList.add("wrong");b.disabled=true;$("feedback").className="feedback bad";$("feedback").textContent="Pas encore ! Essaie une autre réponse. 💪"}
-    });
-    $("next").onclick=()=>{
-      state.question++;choices=[];answered=false;
-      if(state.question===m.qs.length){state.phase="done";if(!state.completed.includes(state.mission))state.completed.push(state.mission)}
-      render();save();
-    };
-  } else if(state.phase==="done"){
-    const next=missions.findIndex((_,i)=>!state.completed.includes(i));
-    main.innerHTML=`<div class="finish"><div class="big-icon">🌟</div><h2>Mission accomplie !</h2><p>Bravo ! Tu as une étoile pour « ${m.title} ».</p><p class="tip">Dis à voix haute un mot ou une phrase que tu connais.</p><button class="action" id="continue" type="button">${next<0?"Voir mon bilan →":"Prochaine planète →"}</button></div>`;
-    $("continue").onclick=()=>{if(next<0)state.phase="finish";else{state.mission=next;state.phase="learn"}render();save()};
-  } else {
-    main.innerHTML=`<div class="finish"><div class="big-icon">🏆</div><h2>Bravo, explorateur !</h2><p>Les 7 planètes sont explorées : tu as 7 étoiles !</p><div class="learn"><h3>⏱️ Une minute pour le bilan</h3><p>Dis ton prénom et ton âge. Nomme un jour, un mois, une saison, un nombre et un objet de ta trousse.</p><p>Termine avec : « J’ai un crayon. »</p></div><button class="secondary" id="replay" type="button">Revoir les missions</button></div>`;
-    $("replay").onclick=()=>{state.mission=0;state.phase="learn";render();save()};
-  }
+ map();clock();const m=missions[state.mission],main=$("main");
+ if(state.phase==="learn"){
+  main.innerHTML=`<div class="eyebrow">Mission ${state.mission+1} / 7 · environ 7 minutes</div><div class="big-icon">${m.icon}</div><h2>${m.title}</h2><p class="muted">Lis les mots. Puis explore les trois défis et fais le défi sur papier !</p><div class="learn"><h3>🔎 Ma boîte à mots</h3><div class="words">${m.words.map(w=>`<span class="word">${w}</span>`).join("")}</div></div><button class="action" id="start" type="button">C’est parti ! →</button>`;
+  $("start").onclick=()=>{state.phase="activity";state.task=0;initActivity();render()};
+ }else if(state.phase==="activity"){
+  const task=m.tasks[state.task];if(!activity)initActivity();
+  main.innerHTML=`<div class="eyebrow">${m.icon} ${m.title} · Défi ${state.task+1} / 3</div><div class="progress"><span style="width:${state.task/3*100}%"></span></div><div class="question">${task.prompt}</div><div id="game"></div><p class="feedback ${activity.good?"good":"bad"}" id="feedback" role="status" aria-live="polite">${activity.message}</p><details><summary>💡 Voir la boîte à mots</summary><div class="words">${m.words.map(w=>`<span class="word">${w}</span>`).join("")}</div></details><div class="row" id="controls"></div>`;
+  if(task.type==="order")renderOrder(task);
+  if(task.type==="pairs")renderPairs(task);
+  if(task.type==="quiz")renderQuiz(task);
+ }else if(state.phase==="paper"){
+  main.innerHTML=`<div class="eyebrow">${m.icon} ${m.title} · Défi sur papier</div><div class="big-icon">📝</div><h2>À toi de créer !</h2><div class="learn"><p>${m.paper}</p><p class="tip">Prends ton temps. Tu peux utiliser la boîte à mots.</p><div class="words">${m.words.map(w=>`<span class="word">${w}</span>`).join("")}</div></div><button class="action" id="finishMission" type="button">J’ai terminé →</button>`;
+  $("finishMission").onclick=()=>{if(!state.completed.includes(state.mission))state.completed.push(state.mission);state.phase="done";render();save()};
+ }else if(state.phase==="done"){
+  const next=missions.findIndex((_,i)=>!state.completed.includes(i));
+  main.innerHTML=`<div class="finish"><div class="big-icon">🌟</div><h2>Mission accomplie !</h2><p>Bravo ! Tu as une étoile pour « ${m.title} ».</p><button class="action" id="continue" type="button">${next<0?"Voir mon bilan →":"Prochaine planète →"}</button></div>`;
+  $("continue").onclick=()=>{if(next<0)state.phase="finish";else{state.mission=next;state.phase="learn";state.task=0}render();save()};
+ }else{
+  main.innerHTML=`<div class="finish"><div class="big-icon">🏆</div><h2>Bravo, explorateur !</h2><p>Les 7 planètes sont explorées : tu as 7 étoiles !</p><div class="learn"><h3>⏱️ Une minute pour le bilan</h3><p>Sur ton cahier, écris ton prénom et ton âge. Ajoute un jour, un mois, une saison, un nombre et un objet de ta trousse.</p></div><button class="secondary" id="replay" type="button">Revoir les missions</button></div>`;
+  $("replay").onclick=()=>{state.mission=0;state.phase="learn";render();save()};
+ }
 }
-function newQuestion(){choices=shuffle(missions[state.mission].qs[state.question].slice(1));answered=false}
-$("timerButton").onclick=()=>{
-  state.running=!state.running;
-  if(state.running){timer=setInterval(()=>{state.seconds=Math.max(0,state.seconds-1);if(state.seconds===0){clearInterval(timer);state.running=false}$("clock").textContent=`⏱ ${String(Math.floor(state.seconds/60)).padStart(2,"0")}:${String(state.seconds%60).padStart(2,"0")}`;if(!state.running)clock();if(state.seconds%10===0||!state.running)save()},1000)}
-  else {clearInterval(timer);save()}clock();
-};
-$("reset").onclick=()=>{if(confirm("Recommencer le voyage et effacer la progression sur cet appareil ?")){clearInterval(timer);state={completed:[],mission:0,question:0,phase:"learn",seconds:3000,running:false};choices=[];answered=false;save();render()}};
+function renderOrder(task){
+ $("game").innerHTML=`<p class="muted">Clique sur les cartes dans l’ordre. Utilise « Effacer » pour recommencer.</p><div class="sequence" aria-label="Ta réponse">${activity.chosen.length?activity.chosen.map(i=>`<span class="chip">${task.items[i]}</span>`).join(""):"<span class='muted'>Ta réponse apparaît ici…</span>"}</div><div class="options">${activity.pool.map(i=>`<button class="option" type="button" data-item="${i}">${task.items[i]}</button>`).join("")}</div>`;
+ document.querySelectorAll("[data-item]").forEach(b=>b.onclick=()=>{const i=Number(b.dataset.item);activity.pool=activity.pool.filter(n=>n!==i);activity.chosen.push(i);activity.message="";render()});
+ $("controls").innerHTML=`<button class="secondary" id="clear" type="button">Effacer</button><button class="action" id="check" type="button" ${activity.chosen.length!==task.items.length?"disabled":""}>Vérifier</button>`;
+ $("clear").onclick=()=>{activity.pool=shuffle(task.items.map((_,i)=>i));activity.chosen=[];activity.message="";render()};
+ $("check").onclick=()=>{if(activity.chosen.every((n,i)=>n===i))nextTask();else{activity.message="Pas encore ! Efface et essaie encore. 💪";activity.good=false;render()}};
+}
+function renderPairs(task){
+ const done=i=>activity.matched.includes(i);
+ $("game").innerHTML=`<p class="muted">Clique sur une carte à gauche, puis sur sa paire à droite.</p><div class="pair-grid"><div class="column">${activity.left.map(i=>`<button type="button" class="option ${done(i)?"matched":activity.selected===i?"selected":""}" data-left="${i}" ${done(i)?"disabled":""}>${task.pairs[i][0]}${done(i)?" ✓":""}</button>`).join("")}</div><div class="column">${activity.right.map(i=>`<button type="button" class="option ${done(i)?"matched":""}" data-right="${i}" ${done(i)?"disabled":""}>${task.pairs[i][1]}${done(i)?" ✓":""}</button>`).join("")}</div></div>`;
+ document.querySelectorAll("[data-left]").forEach(b=>b.onclick=()=>{activity.selected=Number(b.dataset.left);activity.message="";render()});
+ document.querySelectorAll("[data-right]").forEach(b=>b.onclick=()=>{const i=Number(b.dataset.right);if(activity.selected===null){activity.message="Choisis d’abord une carte à gauche.";activity.good=false}else if(i===activity.selected){activity.matched.push(i);activity.selected=null;activity.message=activity.matched.length===task.pairs.length?"Bravo ! Toutes les paires sont trouvées. ⭐":"Bravo ! Une paire ! ⭐";activity.good=true}else{activity.selected=null;activity.message="Pas encore ! Essaie une autre paire. 💪";activity.good=false}render()});
+ if(activity.matched.length===task.pairs.length){$("controls").innerHTML='<button class="action" id="next" type="button">Continuer →</button>';$("next").onclick=nextTask}
+}
+function renderQuiz(task){
+ const q=task.questions[activity.index];
+ $("game").innerHTML=`<p class="muted">Question ${activity.index+1} / ${task.questions.length}</p><h3>${q[0]}</h3><div class="options">${activity.options.map((v,i)=>`<button type="button" class="option ${activity.solved&&v===q[1]?"matched":""}" data-choice="${i}" ${activity.solved?"disabled":""}>${v}</button>`).join("")}</div>`;
+ document.querySelectorAll("[data-choice]").forEach(b=>b.onclick=()=>{if(activity.options[Number(b.dataset.choice)]===q[1]){activity.solved=true;activity.good=true;activity.message="Bravo ! Bonne réponse ! ⭐"}else{activity.good=false;activity.message="Pas encore ! Essaie encore. 💪"}render()});
+ if(activity.solved){$("controls").innerHTML='<button class="action" id="next" type="button">Continuer →</button>';$("next").onclick=()=>{activity.index++;if(activity.index===task.questions.length)nextTask();else{activity.options=shuffle(task.questions[activity.index].slice(1));activity.solved=false;activity.message="";render()}}}
+}
+$("timerButton").onclick=()=>{state.running=!state.running;if(state.running){timer=setInterval(()=>{state.seconds=Math.max(0,state.seconds-1);if(state.seconds===0){clearInterval(timer);state.running=false}clock();if(state.seconds%10===0||!state.running)save()},1000)}else{clearInterval(timer);save()}clock()};
+$("reset").onclick=()=>{if(confirm("Recommencer le voyage et effacer la progression sur cet appareil ?")){clearInterval(timer);state={completed:[],mission:0,phase:"learn",task:0,seconds:3000,running:false};activity=null;save();render()}};
 restore();render();
 </script>
 </body>
